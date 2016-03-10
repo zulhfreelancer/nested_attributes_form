@@ -1,0 +1,30 @@
+<%= nested_form_for @note do |f| %>
+  <% if @note.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@note.errors.count, "error") %> prohibited this note from being saved:</h2>
+
+      <ul>
+      <% @note.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.fields_for :attachments do |attachment| %>
+      <%= attachment.text_field :attachment_type %>
+      <%= attachment.link_to_remove "Remove attachment" %>
+    <% end %>
+    <p><%= f.link_to_add "Add attachment", :attachments %></p>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
